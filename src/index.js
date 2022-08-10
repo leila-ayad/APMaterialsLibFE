@@ -5,6 +5,7 @@ import "./index.css";
 import App from "./App";
 import Login from "./Components/Login"
 import Register from "./Components/Register";
+import  NewMaterial  from "./Components/NewMaterial";
 import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -15,6 +16,7 @@ root.render(
         <Route path="/" element={<App/>} />
         <Route path="login" element={<Login/>} />
         <Route path="register" element={<Register/>} />
+        <Route path="newmaterial" element={<NewMaterial/>} />
         <Route
       path="*"
       element={
