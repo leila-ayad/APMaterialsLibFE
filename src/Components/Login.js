@@ -23,7 +23,8 @@ export default function Login(props) {
     axios
       .post("http://localhost:9000/api/auth/login", newUser)
       .then((resp) => {
-        console.log(resp.data.message);
+        console.log(resp.data);
+        //the jwt will show up here. This where I need to set the "Auth" state to the token which had a provider
         setLoginError(resp.data.message);
       })
       .catch((err) => {

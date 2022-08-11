@@ -46,13 +46,12 @@ export default function Register(props) {
   };
 
   //this function doesn't work right yet. If it puts up the error message it doesn't get rid of it until the form is submitted instead of when the error is fixed
+  //maybe set the errors to an empty string on each click. 
   const validate = () => {
     let formIsValid = true;
     //there are different options for the mailFormat regex. This one is working (7/20/2022)
     let mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/;
-
-    console.log(registerValues);
-    console.log(errors);
+    
     if (
       !registerValues.username ||
       !registerValues.password ||
@@ -79,8 +78,6 @@ export default function Register(props) {
 
   const onSubmit = (evt) => {
     evt.preventDefault();
-    setErrors("");
-    console.log(errors)
     if (validate()) {
       submitRegistration();
       setErrors("");
