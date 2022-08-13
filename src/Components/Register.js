@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import axios from "../api/axios";
 
 const initialRegister = {
   email: "",
@@ -32,7 +32,7 @@ export default function Register(props) {
       pronouns: registerValues.pronouns,
     };
     axios
-      .post("http://localhost:9000/api/auth/register", newMember)
+      .post("/auth/register", newMember)
       .then((resp) => {
         console.log(resp);
       })

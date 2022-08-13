@@ -1,13 +1,18 @@
-import React, {useState} from "react";
-import axios from "axios";
+import React, { useState } from "react";
+import axios from "../api/axios";
+import useAuth from "../Hooks/useAuth";
+import { useNavigate, useLocation } from "react-router-dom";
 
-
-
-// to complete form create update & submit functions and create formValue SoS
+// to complete form create update & submit functions and create formValues
 const initialUser = { username: "", password: "" };
 
-
 export default function Login(props) {
+  const { setAuth } = useAuth();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/dashboard";
+
   const [loginValues, setLoginValues] = useState(initialUser);
   const [loginError, setLoginError] = useState("");
 
@@ -21,13 +26,25 @@ export default function Login(props) {
       password: loginValues.password,
     };
     axios
-      .post("http://localhost:9000/api/auth/login", newUser)
+      .post("/auth/login", newUser)
       .then((resp) => {
-        console.log(resp.data);
-        //the jwt will show up here. This where I need to set the "Auth" state to the token which had a provider
-        setLoginError(resp.data.message);
+        console.log(resp?.data);
+        const accessToken = resp?.data?.token;
+        const memberId = resp?.data?.member_id;
+        const username = resp?.data?.username;
+        setAuth({ accessToken, memberId, username });
+        navigate(from, { replace: true });
       })
       .catch((err) => {
+        if (!err?.response) {
+          setLoginError("No server response");
+        } else if (err.response?.status === 400) {
+          setLoginError("Missing username or password");
+        } else if (err.response?.status === 401) {
+          setLoginError("Unauthorized");
+        } else {
+          setLoginError("Login Failed");
+        }
         console.log(err.response.data.message);
         setLoginError(err.response.data.message);
       })
@@ -67,7 +84,7 @@ export default function Login(props) {
           <button className="LoginButton">Let's Go!</button>
         </div>
       </form>
-      <a href="link here">Create New User</a> | {" "}
+      <a href="/register">Create New User</a> | {" "}
       <a href="link here">Forgot Password?</a>
     </div>
   );

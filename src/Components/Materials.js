@@ -1,10 +1,41 @@
-import React from 'react'
+import { useState, useEffect } from "react";
+import axios from "../api/axios";
+import Material from "./Material";
 
-export function Materials () {
+const Materials = () => {
+  const [materials, setMaterials] = useState();
 
-    return (
-        <div>
+  useEffect(() => {
+    axios
+      .get("/materials")
+      .then((resp) => {
+        setMaterials(resp.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
-        </div>
-    )
-}
+  return (
+    <article>
+      <h2>Materials List</h2>
+      {materials?.length ? (
+        <ul>
+          {materials.map((material) => (
+            <Material
+              key={material.material_id}
+              item={material.material_name}
+              description={material.material_description}
+              amount={material.material_unit}
+              contact={material.contact_method}
+            />
+          ))}
+        </ul>
+      ) : (
+        <p>No materials to display</p>
+      )}
+    </article>
+  );
+};
+
+export default Materials;
