@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import axios from "../api/axios";
-import Material from "./Material";
+import axios from "../../api/axios";
+import Material from "../Material";
 
 const Materials = () => {
   const [materials, setMaterials] = useState();
@@ -27,7 +27,8 @@ const Materials = () => {
               item={material.material_name}
               description={material.material_description}
               amount={material.material_unit}
-              contact={material.contact_method}
+              phone={material.phone_number}
+              email={material.email}
             />
           ))}
         </ul>

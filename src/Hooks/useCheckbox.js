@@ -5,7 +5,6 @@ const useCheckbox = (initialState) => {
 
   const handleCheckbox = (name, value) => {
     setChecked({ ...checked, [name]: !value });
-    console.log(checked);
   };
 
   return { checked, handleCheckbox };

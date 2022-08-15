@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import useForm from "../Hooks/useForm";
 import useCheckbox from "../Hooks/useCheckbox";
 
@@ -6,7 +6,7 @@ const initialMaterial = {
   name: "",
   description: "",
   unit: "",
-  phoneNumber: "",
+  phone: "",
   email: "",
   image: "",
 };
@@ -16,7 +16,7 @@ const checkboxes = {
   email: false,
 };
 
-export default function NewMaterial(props) {
+export default function NewMaterial() {
   const { formData, handleInputChange } = useForm(initialMaterial);
   const { checked, handleCheckbox } = useCheckbox(checkboxes);
 
@@ -65,17 +65,16 @@ export default function NewMaterial(props) {
             <input
               name="phone"
               type="checkbox"
-              id="phone"
               onChange={() => handleCheckbox("phone", checked.phone)}
             ></input>
             {checked.phone === true ? (
               <input
-                name="phone"
-                type="text"
-                placeholder="Phone Number"
-                value={formData.phoneNumber}
-                onChange={handleInputChange}
-              ></input>
+              name="phone"
+              type="text"
+              placeholder="Phone Number"
+              value={formData.phone}
+              onChange={handleInputChange}
+            ></input>
             ) : (
               ""
             )}
@@ -83,7 +82,6 @@ export default function NewMaterial(props) {
             <input
               name="email"
               type="checkbox"
-              id="email"
               onChange={() => handleCheckbox("email", checked.email)}
             ></input>
             {checked.email === true ? (
