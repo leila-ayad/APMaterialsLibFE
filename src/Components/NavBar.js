@@ -5,6 +5,7 @@ import useAuth from "../Hooks/useAuth";
 export default function Navbar() {
   const { auth } = useAuth();
 
+  const id = auth.memberId
   return (
     <nav className="nav">
       <Link to="/" className="site-title">
@@ -13,7 +14,7 @@ export default function Navbar() {
       <ul>
 
         <CustomLink to="/materials">Materials</CustomLink>
-        <CustomLink to="/mymaterials">My Materials</CustomLink>
+        <CustomLink to={`${id}/your-materials`}>My Materials</CustomLink>
         <CustomLink to="/newMaterial">New Material</CustomLink>
         {auth.accessToken ? (
           <CustomLink to="/logout">Logout</CustomLink>

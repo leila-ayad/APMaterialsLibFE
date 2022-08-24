@@ -11,7 +11,11 @@ import NewMaterial from "./Components/NewMaterial";
 import RequireAuth from "./Components/RequireAuth";
 import MyMaterials from "./Components/Pages/MyMaterials";
 
+import useAuth from "./Hooks/useAuth"
+
 function App() {
+  const { auth } = useAuth()
+  const id = auth.memberId
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
@@ -25,7 +29,7 @@ function App() {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="newmaterial" element={<NewMaterial />} />
           <Route path="materials" element={<Materials />} />
-          <Route path="mymaterials" element={<MyMaterials />} />
+          <Route path={`${id}/your-materials`} element={<MyMaterials />} />
         </Route>
       </Route>
     </Routes>

@@ -1,20 +1,23 @@
 import { useState, useEffect } from "react";
-import axios from "../../api/axios";
-import Material from "../Material";
+import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
+import Material from "../MaterialCard";
 
 const Materials = () => {
   const [materials, setMaterials] = useState();
+  const axiosPrivate = useAxiosPrivate();
 
   useEffect(() => {
-    axios
-      .get("/materials")
-      .then((resp) => {
-        setMaterials(resp.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+    const getMaterials = async () => {
+      try {
+        const response = await axiosPrivate.get("/materials");
+        setMaterials(response.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    getMaterials();
+  }, [axiosPrivate]);
 
   return (
     <article>

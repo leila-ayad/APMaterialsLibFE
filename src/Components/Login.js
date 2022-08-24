@@ -25,7 +25,7 @@ export default function Login(props) {
       .post("/auth/login", newUser)
       .then((resp) => {
         console.log(resp?.data);
-        const accessToken = resp?.data?.token;
+        const accessToken = resp?.data?.accessToken;
         const memberId = resp?.data?.member_id;
         const username = resp?.data?.username;
         setAuth({ accessToken, memberId, username });

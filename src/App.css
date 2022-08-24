@@ -137,3 +137,12 @@ input:focus {
   background-color: #777;
 }
 
+
+.overlay {
+  background-color: #777;
+
+}
+
+.dialogContainer {
+  background-color: #f8f4e5;
+}

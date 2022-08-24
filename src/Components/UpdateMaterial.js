@@ -2,33 +2,16 @@ import React from "react";
 import useForm from "../Hooks/useForm";
 import useCheckbox from "../Hooks/useCheckbox";
 
-const initialMaterial = {
-  name: "",
-  description: "",
-  unit: "",
-  phone: "",
-  email: "",
-  image: "",
-};
 
-const checkboxes = {
-  phone: false,
-  email: false,
-};
+export default function UpdateMaterial ({material}) {
+    const { formData, handleInputChange } = useForm(material);
+    const { checked, handleCheckbox } = useCheckbox(checkboxes);
 
-export default function NewMaterial() {
-  const { formData, handleInputChange } = useForm(initialMaterial);
-  const { checked, handleCheckbox } = useCheckbox(checkboxes);
 
-  return (
-    <div>
-      {/* I think I need to use Axios here to send the member_id with the req.body */}
-      <form
-        action="http://localhost:9000/api/materials/upload"
-        enctype="multipart/form-data"
-        method="POST"
-      >
-        <label>
+    return (
+        <div>
+            <form>
+            <label>
           Name of Material
           <input
             name="name"
@@ -102,7 +85,7 @@ export default function NewMaterial() {
           <input type="file" name="pic" />
         </label>
         <input type="submit" value="Upload a file" />
-      </form>
-    </div>
-  );
+            </form>
+        </div>
+    )
 }
