@@ -7,7 +7,11 @@ const useForm = (initialState) => {
     setFormData({ ...formData, [evt.target.name]: evt.target.value });
   };
 
-  return { formData, handleInputChange };
+  const handleImageUpload = (evt) => {
+    setFormData( {  ...formData, [evt.target.name]: evt.target.files[0] })  
+  }
+
+  return { formData, handleInputChange, handleImageUpload };
 };
 
 export default useForm;

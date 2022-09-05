@@ -9,13 +9,13 @@ const Materials = () => {
   useEffect(() => {
     const getMaterials = async () => {
       try {
-        const response = await axiosPrivate.get("/materials");
+        const response = await axiosPrivate.get("/materials/");
+        console.log(response.data);
         setMaterials(response.data);
       } catch (err) {
         console.error(err);
       }
     };
-
     getMaterials();
   }, [axiosPrivate]);
 
@@ -23,20 +23,23 @@ const Materials = () => {
     <article>
       <h2>Materials List</h2>
       {materials?.length ? (
-        <ul>
-          {materials.map((material) => (
-            <Material
-              key={material.material_id}
-              item={material.material_name}
-              description={material.material_description}
-              amount={material.material_unit}
-              phone={material.phone_number}
-              email={material.email}
-            />
-          ))}
-        </ul>
+        <div>
+          <ul className="MaterialsContainer">
+            {materials.map((material) => (
+              <Material
+                key={material.material_id}
+                item={material.material_name}
+                description={material.material_description}
+                amount={material.material_unit}
+                phone={material.phone_number}
+                email={material.email}
+                image={material.image_name}
+              />
+            ))}
+          </ul>
+        </div>
       ) : (
-        <p>No materials to display</p>
+        <p>No Materials to display</p>
       )}
     </article>
   );

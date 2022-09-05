@@ -1,18 +1,16 @@
 import { useState } from "react";
 import useAxiosPrivate from "./useAxiosPrivate";
 
-const useDialog = (id) => {
+const useDialog = (activeMaterial) => {
   const [showDialog, setShowDialog] = useState(false);
   const [message, setMessage] = useState("");
 
   const axiosPrivate = useAxiosPrivate();
-  const materialId = id;
+  const materialId = activeMaterial.material_id;
 
-  const confirmDelete = (id) => {
-    console.log("in api call", id);
+  const confirmDelete = () => {
     axiosPrivate.delete(`/materials/${materialId}`).then((resp) => {
       setMessage(resp.data.message);
-      console.log(resp);
     });
     setShowDialog(false);
   };
@@ -21,7 +19,7 @@ const useDialog = (id) => {
     setShowDialog(false);
   };
 
-  return { setShowDialog, showDialog, message, confirmDelete, cancelDelete };
+  return { setShowDialog, showDialog, message, confirmDelete, cancelDelete, setMessage };
 };
 
 export default useDialog;

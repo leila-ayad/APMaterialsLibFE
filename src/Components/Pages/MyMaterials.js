@@ -3,14 +3,23 @@ import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
 import useAuth from "../../Hooks/useAuth";
 import Material from "../MaterialCard";
 import Dialog from "../Dialog";
-import useDialog from "../../Hooks/useDialog"
+import useDialog from "../../Hooks/useDialog";
+import UpdateMaterial from "../UpdateMaterial";
 
 export default function MyMaterials() {
   const [myMaterials, setMyMaterials] = useState([]);
-  const [materialId, setMaterialId] = useState(1)
+  const [activeMaterial, setActiveMaterial] = useState({});
   const axiosPrivate = useAxiosPrivate();
   const { auth } = useAuth();
-  const { setShowDialog, showDialog, message, confirmDelete, cancelDelete } = useDialog(materialId)
+  const {
+    setShowDialog,
+    showDialog,
+    message,
+    setMessage,
+    confirmDelete,
+    cancelDelete,
+  } = useDialog(activeMaterial);
+  const [showUpdate, setShowUpdate] = useState(false);
 
   useEffect(() => {
     const getMyMaterials = async () => {
@@ -27,17 +36,22 @@ export default function MyMaterials() {
     getMyMaterials();
   }, [message, auth.memberId]);
 
-const handleClick = (material) => {
-    setMaterialId(material)
-    setShowDialog(true)
-}
- 
+  const handleDeleteClick = (material) => {
+    setActiveMaterial(material);
+    setShowDialog(true);
+  };
+
+  const handleUpdateClick = (material) => {
+    setActiveMaterial(material);
+    setShowUpdate(true);
+  };
+
   return (
     <article>
       <h2>Materials List</h2>
       {message ? <p>{message}</p> : <></>}
       {myMaterials?.length ? (
-        <ul>
+        <ul className="MaterialsContainer">
           {myMaterials.map((material) => (
             <li>
               <Material
@@ -47,18 +61,30 @@ const handleClick = (material) => {
                 amount={material.material_unit}
                 phone={material.phone_number}
                 email={material.email}
+                image={material.image_name}
               />
-              <button>Update</button>
-              <button onClick={() => handleClick(material.material_id)} >
+              <button onClick={() => handleUpdateClick(material)}>
+                Update
+              </button>
+              <button onClick={() => handleDeleteClick(material)}>
                 Delete
               </button>
             </li>
           ))}
         </ul>
       ) : (
-        <p>No Materials to display</p>
+        <p>
+          You have no materials to display. Add your materials by following the
+          "New Materials" tab
+        </p>
       )}
       <Dialog show={showDialog} cancel={cancelDelete} confirm={confirmDelete} />
+      <UpdateMaterial
+        material={activeMaterial}
+        show={showUpdate}
+        setShow={setShowUpdate}
+        setMessage={setMessage}
+      />
     </article>
   );
 }

@@ -1,14 +1,15 @@
 import React from "react";
 import useForm from "../Hooks/useForm";
 import useCheckbox from "../Hooks/useCheckbox";
+import useAxiosPrivate from "../Hooks/useAxiosPrivate";
 
 const initialMaterial = {
-  name: "",
-  description: "",
-  unit: "",
-  phone: "",
-  email: "",
-  image: "",
+  material_name: "",
+  material_description: "",
+  material_unit: "",
+  phone_number: null,
+  email: null,
+  image: File,
 };
 
 const checkboxes = {
@@ -17,92 +18,111 @@ const checkboxes = {
 };
 
 export default function NewMaterial() {
-  const { formData, handleInputChange } = useForm(initialMaterial);
+  const { formData, handleInputChange, handleImageUpload, setFormData } =
+    useForm(initialMaterial);
   const { checked, handleCheckbox } = useCheckbox(checkboxes);
+  const axiosPrivate = useAxiosPrivate();
+
+  async function postFormData(formData) {
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    };
+    try {
+      const result = await axiosPrivate.post("/materials", formData, config);
+      return result.data;
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setFormData(initialMaterial);
+    }
+  }
+
+  const handleSubmit = async (evt) => {
+    evt.preventDefault();
+    const result = await postFormData(formData);
+    console.log(result);
+  };
 
   return (
-    <div>
-      {/* I think I need to use Axios here to send the member_id with the req.body */}
-      <form
-        action="http://localhost:9000/api/materials/upload"
-        enctype="multipart/form-data"
-        method="POST"
-      >
-        <label>
-          Name of Material
-          <input
-            name="name"
-            type="text"
-            placeholder="Material name"
-            value={formData.name}
-            onChange={handleInputChange}
-          ></input>
-        </label>
-        <label>
-          Describe the materials
-          <input
-            name="description"
-            type="text"
-            placeholder="Uses, quality, color, type, etc."
-            value={formData.description}
-            onChange={handleInputChange}
-          ></input>
-        </label>
-        <label>
-          Amount available
-          <input
-            name="unit"
-            type="text"
-            placeholder="Weight, length, height, etc."
-            value={formData.unit}
-            onChange={handleInputChange}
-          ></input>
-        </label>
-        <div>
+      <div className="MaterialFormContainer">
+        <form className="MaterialForm">
           <label>
-            Contact Method: Select all that apply<br></br>
-            <label for="phone">phone</label>
+            Name of Material
             <input
-              name="phone"
-              type="checkbox"
-              onChange={() => handleCheckbox("phone", checked.phone)}
-            ></input>
-            {checked.phone === true ? (
-              <input
-              name="phone"
+              name="material_name"
               type="text"
-              placeholder="Phone Number"
-              value={formData.phone}
+              placeholder="Material name"
+              value={formData.material_name}
               onChange={handleInputChange}
             ></input>
-            ) : (
-              ""
-            )}
-            <label for="email">email</label>
+          </label>
+          <label>
+            Describe the materials
             <input
-              name="email"
-              type="checkbox"
-              onChange={() => handleCheckbox("email", checked.email)}
+              name="material_description"
+              type="text"
+              placeholder="Uses, quality, color, type, etc."
+              value={formData.material_description}
+              onChange={handleInputChange}
             ></input>
-            {checked.email === true ? (
+          </label>
+          <label>
+            Amount available
+            <input
+              name="material_unit"
+              type="text"
+              placeholder="Weight, length, height, etc."
+              value={formData.material_unit}
+              onChange={handleInputChange}
+            ></input>
+          </label>
+          <div>
+            <label>
+              Contact Method: Select all that apply<br></br>
+              <label for="phone">phone</label>
+              <input
+                name="phone"
+                type="checkbox"
+                onChange={() => handleCheckbox("phone", checked.phone)}
+              ></input>
+              {checked.phone === true ? (
+                <input
+                  name="phone_number"
+                  type="text"
+                  placeholder="Phone Number"
+                  value={formData.phone_number}
+                  onChange={handleInputChange}
+                ></input>
+              ) : (
+                ""
+              )}
+              <label for="email">email</label>
               <input
                 name="email"
-                type="text"
-                placeholder="Email"
-                value={formData.email}
-                onChange={handleInputChange}
+                type="checkbox"
+                onChange={() => handleCheckbox("email", checked.email)}
               ></input>
-            ) : (
-              ""
-            )}
+              {checked.email === true ? (
+                <input
+                  name="email"
+                  type="text"
+                  placeholder="Email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                ></input>
+              ) : (
+                ""
+              )}
+            </label>
+          </div>
+          <label for="image">
+            Upload a photo
+            <input type="file" name="image" onChange={handleImageUpload} />
           </label>
-        </div>
-        <label for="pic">
-          Upload a photo
-          <input type="file" name="pic" />
-        </label>
-        <input type="submit" value="Upload a file" />
-      </form>
-    </div>
+        </form>
+        <button onClick={handleSubmit}>Submit Material</button>
+      </div>
   );
 }

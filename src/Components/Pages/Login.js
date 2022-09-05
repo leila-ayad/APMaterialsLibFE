@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import axios from "../api/axios";
-import useAuth from "../Hooks/useAuth";
-import useForm from "../Hooks/useForm";
+import axios from "../../api/axios";
+import useAuth from "../../Hooks/useAuth";
+import useForm from "../../Hooks/useForm";
 import { useNavigate, useLocation } from "react-router-dom";
 
 // to complete form create update & submit functions and create formValues
@@ -76,7 +76,7 @@ export default function Login(props) {
         </div>
       </form>
       <a href="/register">Create New User</a> |{" "}
-      <a href="link here">Forgot Password?</a>
+      <a href="/help">Forgot Password?</a>
     </div>
   );
 }

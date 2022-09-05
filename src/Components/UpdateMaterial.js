@@ -1,43 +1,76 @@
-import React from "react";
-import useForm from "../Hooks/useForm";
+import { useState } from "react";
+import useAxiosPrivate from "../Hooks/useAxiosPrivate";
 import useCheckbox from "../Hooks/useCheckbox";
 
+const checkboxes = {
+    phone: false,
+    email: false,
+  };
+  
 
-export default function UpdateMaterial ({material}) {
-    const { formData, handleInputChange } = useForm(material);
+export default function UpdateMaterial ({material, show, setShow, setMessage}) {
+    const [ updatedMaterial, setUpdatedMaterial ] = useState(material)
     const { checked, handleCheckbox } = useCheckbox(checkboxes);
 
 
+    const handleInputChange = (evt) => {
+        setUpdatedMaterial({ ...updatedMaterial, [evt.target.name]: evt.target.value });
+      };
+    const axiosPrivate = useAxiosPrivate()
+
+
+    const materialId = material.material_id;
+
+
+    const updateMaterial = () => {
+        axiosPrivate.put(`materials/${materialId}`, updatedMaterial ).then((resp) => {
+            setMessage(resp.data.message)
+        })
+        setShow(false)
+        setUpdatedMaterial("")
+    }
+
+    const cancelUpdate = () => {
+        setShow(false);
+        setUpdatedMaterial(material)
+      };
+    
+
+
+    if (!show) {
+        return <></>
+    }
+
     return (
-        <div>
-            <form>
+        <div className="overlay">
+            <form className="updateForm">
             <label>
           Name of Material
-          <input
-            name="name"
+          <input 
+            name="material_name"
             type="text"
-            placeholder="Material name"
-            value={formData.name}
+            placeholder={material.material_name}
+            value={updatedMaterial.material_name}
             onChange={handleInputChange}
           ></input>
         </label>
         <label>
           Describe the materials
           <input
-            name="description"
+            name="material_description"
             type="text"
-            placeholder="Uses, quality, color, type, etc."
-            value={formData.description}
+            placeholder={material.material_description}
+            value={updatedMaterial.material_description}
             onChange={handleInputChange}
           ></input>
         </label>
         <label>
           Amount available
           <input
-            name="unit"
+            name="material_unit"
             type="text"
-            placeholder="Weight, length, height, etc."
-            value={formData.unit}
+            placeholder={material.material_unit}
+            value={updatedMaterial.material_unit}
             onChange={handleInputChange}
           ></input>
         </label>
@@ -52,10 +85,10 @@ export default function UpdateMaterial ({material}) {
             ></input>
             {checked.phone === true ? (
               <input
-              name="phone"
+              name="phone_number"
               type="text"
-              placeholder="Phone Number"
-              value={formData.phone}
+              placeholder={material.phone_number}
+              value={updatedMaterial.phone_number}
               onChange={handleInputChange}
             ></input>
             ) : (
@@ -71,8 +104,8 @@ export default function UpdateMaterial ({material}) {
               <input
                 name="email"
                 type="text"
-                placeholder="Email"
-                value={formData.email}
+                placeholder={material.email}
+                value={updatedMaterial.email}
                 onChange={handleInputChange}
               ></input>
             ) : (
@@ -86,6 +119,8 @@ export default function UpdateMaterial ({material}) {
         </label>
         <input type="submit" value="Upload a file" />
             </form>
+        <button onClick={cancelUpdate}>Cancel Update</button>
+        <button onClick={updateMaterial}>Update Material</button>
         </div>
     )
 }

@@ -11,9 +11,8 @@ body {
   width: 100vw;
   height: 100vh;
   display: grid;
-  align-items: center;
-  justify-items: center;
   font-family: "Fjalla One";
+  font-size: 1.8rem;
 }
 
 input {
@@ -70,7 +69,6 @@ input:focus {
 
 .LoginForm {
   margin: 15px;
-
 }
 
 .LoginButton {
@@ -106,10 +104,12 @@ input:focus {
   align-items: stretch;
   gap: 2rem;
   padding: 0 1rem;
+  height: 200px;
+
 }
 
-.site-title {
- font-size: 2rem;
+.SiteTitle {
+  font-size: 2rem;
 }
 
 .nav ul {
@@ -126,7 +126,7 @@ input:focus {
   height: 100%;
   display: flex;
   align-items: center;
-  padding: .25rem
+  padding: 0.25rem;
 }
 
 .nav li.active {
@@ -137,12 +137,69 @@ input:focus {
   background-color: #777;
 }
 
-
 .overlay {
-  background-color: #777;
-
+  position: fixed; /* Sit on top of the page content */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
 }
 
 .dialogContainer {
   background-color: #f8f4e5;
+  margin: 20%;
+  width: 50%;
+  position: fixed;
+}
+
+.updateForm {
+  background-color: #f8f4e5;
+  width: 50%;
+}
+
+.MaterialsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+}
+
+.MaterialContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 400px;
+  margin: 2%;
+  padding: 1%;
+  border: 2px solid black;
+  background-color: peachpuff;
+}
+
+.MaterialBody {
+  padding: 5%;
+}
+
+.MaterialBody p {
+  font-size: large;
+}
+.MaterialImage {
+  height: auto;
+  width: 300px;
+  padding: 5%;
+}
+
+.MaterialFormContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  margin: 10px;
+  border: 2px black solid;
 }
