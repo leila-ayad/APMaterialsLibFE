@@ -23,9 +23,7 @@ export default function NewMaterial() {
     useForm(initialMaterial);
   const { checked, handleCheckbox } = useCheckbox(checkboxes);
   const axiosPrivate = useAxiosPrivate();
-  const {message, setMessage} = useMessage();
-
- 
+  const { message, setMessage } = useMessage();
 
   async function postFormData(formData) {
     const config = {
@@ -35,99 +33,100 @@ export default function NewMaterial() {
     };
     try {
       const result = await axiosPrivate.post("/materials", formData, config);
-      setMessage(result.data.message)
+      setMessage(result.data.message);
+      
     } catch (err) {
-      console.log(err);
+      setMessage(err.response.data.message);
     } finally {
-      setFormData(initialMaterial);
-      console.log(formData)
+      setFormData(initialMaterial)
     }
   }
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
+    setMessage("Please stay on this page while we add the material to the database");
     await postFormData(formData);
   };
 
   return (
-      <div className="MaterialFormContainer">
-        <p className="Message">{message}</p>
-        <form className="MaterialForm">
+    <div className="MaterialFormContainer">
+      <p className="Message">{message}</p>
+      <form className="MaterialForm">
+        <label>
+          Name of Material
+          <input
+            name="material_name"
+            type="text"
+            placeholder="Material name"
+            value={formData.material_name}
+            onChange={handleInputChange}
+          ></input>
+        </label>
+        <label>
+          Describe the materials
+          <input
+            name="material_description"
+            type="text"
+            placeholder="Uses, quality, color, type, etc."
+            value={formData.material_description}
+            onChange={handleInputChange}
+          ></input>
+        </label>
+        <label>
+          Amount available
+          <input
+            name="material_unit"
+            type="text"
+            placeholder="Weight, length, height, etc."
+            value={formData.material_unit}
+            onChange={handleInputChange}
+          ></input>
+        </label>
+        <div>
           <label>
-            Name of Material
+            Contact Method: Select all that apply<br></br>
+            <label for="phone">phone</label>
             <input
-              name="material_name"
-              type="text"
-              placeholder="Material name"
-              value={formData.material_name}
-              onChange={handleInputChange}
+              name="phone"
+              type="checkbox"
+              onChange={() => handleCheckbox("phone", checked.phone)}
             ></input>
-          </label>
-          <label>
-            Describe the materials
-            <input
-              name="material_description"
-              type="text"
-              placeholder="Uses, quality, color, type, etc."
-              value={formData.material_description}
-              onChange={handleInputChange}
-            ></input>
-          </label>
-          <label>
-            Amount available
-            <input
-              name="material_unit"
-              type="text"
-              placeholder="Weight, length, height, etc."
-              value={formData.material_unit}
-              onChange={handleInputChange}
-            ></input>
-          </label>
-          <div>
-            <label>
-              Contact Method: Select all that apply<br></br>
-              <label for="phone">phone</label>
+            {checked.phone === true ? (
               <input
-                name="phone"
-                type="checkbox"
-                onChange={() => handleCheckbox("phone", checked.phone)}
+                name="phone_number"
+                type="text"
+                placeholder="Phone Number"
+                value={formData.phone_number}
+                onChange={handleInputChange}
               ></input>
-              {checked.phone === true ? (
-                <input
-                  name="phone_number"
-                  type="text"
-                  placeholder="Phone Number"
-                  value={formData.phone_number}
-                  onChange={handleInputChange}
-                ></input>
-              ) : (
-                ""
-              )}
-              <label for="email">email</label>
+            ) : (
+              ""
+            )}
+            <label for="email">email</label>
+            <input
+              name="email"
+              type="checkbox"
+              onChange={() => handleCheckbox("email", checked.email)}
+            ></input>
+            {checked.email === true ? (
               <input
                 name="email"
-                type="checkbox"
-                onChange={() => handleCheckbox("email", checked.email)}
+                type="text"
+                placeholder="Email"
+                value={formData.email}
+                onChange={handleInputChange}
               ></input>
-              {checked.email === true ? (
-                <input
-                  name="email"
-                  type="text"
-                  placeholder="Email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                ></input>
-              ) : (
-                ""
-              )}
-            </label>
-          </div>
-          <label for="image">
-            Upload a photo
-            <input type="file" name="image" onChange={handleImageUpload} />
+            ) : (
+              ""
+            )}
           </label>
-        </form>
-        <button onClick={handleSubmit}>Submit Material</button>
-      </div>
+        </div>
+        <label for="image">
+          Upload a photo
+          <input type="file" name="image" onChange={handleImageUpload} />
+        </label>
+      </form>
+      <button onClick={handleSubmit}>Submit Material</button>
+    </div>
   );
 }

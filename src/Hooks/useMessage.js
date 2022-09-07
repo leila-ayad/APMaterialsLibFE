@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useContext } from "react";
+import MessageContext from "../Contexts/MessageProvider"
 
-
-function useMessage() {
-  const [message, setMessage] = useState(null);
-  return {message, setMessage }
+const useMessage =() => {
+  return useContext(MessageContext)
 }
 
-export default useMessage;
+export default useMessage

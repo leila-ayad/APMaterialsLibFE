@@ -5,15 +5,18 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { AuthProvider } from "./Contexts/AuthProvider";
+import { MessageProvider } from "./Contexts/MessageProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
   <BrowserRouter>
     <AuthProvider> 
+      <MessageProvider>
       <Routes>
         <Route path="/*" element={<App/>} />
       </Routes>
+      </MessageProvider>
     </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>

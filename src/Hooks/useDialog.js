@@ -1,9 +1,10 @@
 import { useState } from "react";
+import useMessage from "./useMessage";
 import useAxiosPrivate from "./useAxiosPrivate";
 
 const useDialog = (activeMaterial) => {
   const [showDialog, setShowDialog] = useState(false);
-  const [message, setMessage] = useState("");
+  const {message, setMessage} = useMessage();
 
 
   const axiosPrivate = useAxiosPrivate();
@@ -11,7 +12,6 @@ const useDialog = (activeMaterial) => {
 
   const confirmDelete = () => {
     axiosPrivate.delete(`/materials/${materialId}`).then((resp) => {
-      console.log(resp)
       setMessage(resp.data.message);
     });
     setShowDialog(false);

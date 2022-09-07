@@ -1,13 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom"
+import useMessage from "../../Hooks/useMessage";
 
 export default function LandingPage() {
 
+  const { message } = useMessage()
+
     return (
         <div className="App">
-      <nav>
-        <Link to="/login">Login</Link> | <Link to="/register">New User</Link>
-      </nav>
+      
+      <p>{message}</p>
       <div className="HomeHeader">
         <h1>Welcome to the Member's Only Area!</h1>
       </div>
@@ -42,6 +44,9 @@ export default function LandingPage() {
         </p>
         <p>Dummy text? More like dummy thicc text, amirite?</p>
       </div>
+      <nav>
+        <Link to="/login">Login</Link> | <Link to="/register">New User</Link>
+      </nav>
     </div>
     )
 }

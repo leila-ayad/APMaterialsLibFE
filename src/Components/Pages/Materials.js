@@ -1,19 +1,20 @@
 import { useState, useEffect } from "react";
 import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
 import Material from "../MaterialCard";
+import useMessage from "../../Hooks/useMessage";
 
 const Materials = () => {
   const [materials, setMaterials] = useState();
   const axiosPrivate = useAxiosPrivate();
+  const {message, setMessage } = useMessage()
 
   useEffect(() => {
     const getMaterials = async () => {
       try {
         const response = await axiosPrivate.get("/materials/");
-        console.log(response.data);
         setMaterials(response.data);
       } catch (err) {
-        console.error(err);
+        setMessage(err);
       }
     };
     getMaterials();
@@ -22,6 +23,7 @@ const Materials = () => {
   return (
     <article>
       <h2>Materials List</h2>
+      <p>{message}</p>
       {materials?.length ? (
         <div>
           <ul className="MaterialsContainer">

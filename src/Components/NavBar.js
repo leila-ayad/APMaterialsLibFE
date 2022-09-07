@@ -2,35 +2,41 @@ import React from "react";
 import { Link, useMatch, useResolvedPath } from "react-router-dom";
 import useAxiosPrivate from "../Hooks/useAxiosPrivate";
 import useAuth from "../Hooks/useAuth";
-
-
+import useMessage from "../Hooks/useMessage"
 
 export default function Navbar() {
-  const { auth } = useAuth();
-  const axiosPrivate = useAxiosPrivate()
-
-  const id = auth.memberId
+  const { auth, setAuth } = useAuth();
+  const axiosPrivate = useAxiosPrivate();
+  const { message, setMessage, removeMessage } = useMessage()
+  const id = auth.memberId;
 
   const handleLogout = () => {
-    console.log(auth.accessToken)
     axiosPrivate.get("/auth/logout").then((resp) => {
-      console.log(resp?.data)
-    })
+      setAuth({});
+      setMessage(resp?.data)
+    });
+  };
+
+  const updateMessage = () => {
+   auth?.accessToken ? setMessage(null) : 
+    setMessage("You must login to view this page")
   }
+
   return (
     <nav className="nav">
-      <Link to="/" className="SiteTitle">
-        Materials Library
+      <Link to="/dashboard" className="SiteTitle">
+        Dashboard{" "}
       </Link>
       <ul>
-
-        <CustomLink to="/materials">Materials</CustomLink>
-        <CustomLink to={`${id}/your-materials`}>My Materials</CustomLink>
-        <CustomLink to="/newMaterial">New Material</CustomLink>
+        <CustomLink onClick={updateMessage} to="/materials">Materials</CustomLink>
+        <CustomLink onClick={updateMessage} to={`${id}/your-materials`}>My Materials</CustomLink>
+        <CustomLink onClick={updateMessage} to="/newMaterial">New Material</CustomLink>
         {auth.accessToken ? (
-          <CustomLink onClick={handleLogout} to="/">Logout</CustomLink>
+          <CustomLink onClick={handleLogout} to="/">
+            Logout
+          </CustomLink>
         ) : (
-          <CustomLink to="/login">Login</CustomLink>
+          <CustomLink  onClick={removeMessage} to="/login">Login</CustomLink>
         )}
       </ul>
     </nav>

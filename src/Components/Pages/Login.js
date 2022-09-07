@@ -3,20 +3,22 @@ import axios from "../../api/axios";
 import useAuth from "../../Hooks/useAuth";
 import useForm from "../../Hooks/useForm";
 import { useNavigate, useLocation } from "react-router-dom";
+import useMessage from "../../Hooks/useMessage";
 
 // to complete form create update & submit functions and create formValues
 const initialUser = { username: "", password: "" };
 
 export default function Login(props) {
-  const [loginError, setLoginError] = useState("");
+
   const { formData, handleInputChange } = useForm(initialUser);
   const { setAuth } = useAuth();
-
+  const { message, setMessage, removeMessage } = useMessage()
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/dashboard";
 
   const submitLogin = () => {
+    removeMessage()
     const newUser = {
       username: formData.username,
       password: formData.password,
@@ -33,16 +35,15 @@ export default function Login(props) {
       })
       .catch((err) => {
         if (!err?.response) {
-          setLoginError("No server response");
+          setMessage("No server response");
         } else if (err.response?.status === 400) {
-          setLoginError("Missing username or password");
+          setMessage("Missing username or password");
         } else if (err.response?.status === 401) {
-          setLoginError("Unauthorized");
+          setMessage("Unauthorized");
         } else {
-          setLoginError("Login Failed");
+          setMessage("Login Failed");
         }
-        console.log(err.response.data.message);
-        setLoginError(err.response.data.message);
+        setMessage(err.response.data.message);
       })
       .finally(() => {});
   };
@@ -54,8 +55,8 @@ export default function Login(props) {
 
   return (
     <div className="LoginContainer">
+      <p>{message}</p>
       <h2> Log In!</h2>
-      <div>{loginError}</div>
       <form className="LoginForm" onSubmit={onSubmit}>
         <input
           name="username"
