@@ -11,7 +11,7 @@ const useForm = (initialState) => {
     setFormData( {  ...formData, [evt.target.name]: evt.target.files[0] })  
   }
 
-  return { formData, handleInputChange, handleImageUpload };
+  return { formData, handleInputChange, handleImageUpload, setFormData };
 };
 
 export default useForm;

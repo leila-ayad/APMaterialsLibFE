@@ -29,12 +29,13 @@ export default function MyMaterials() {
           `/materials/${id}/your-materials`
         );
         setMyMaterials(response.data);
+
       } catch (err) {
         console.error(err);
       }
     };
     getMyMaterials();
-  }, [message, auth.memberId]);
+  }, [myMaterials, auth.memberId]);
 
   const handleDeleteClick = (material) => {
     setActiveMaterial(material);
@@ -48,12 +49,12 @@ export default function MyMaterials() {
 
   return (
     <article>
-      <h2>Materials List</h2>
+      <h2>Your Materials</h2>
       {message ? <p>{message}</p> : <></>}
       {myMaterials?.length ? (
         <ul className="MaterialsContainer">
           {myMaterials.map((material) => (
-            <li>
+            <li className="MaterialContainer">
               <Material
                 key={material.material_id}
                 item={material.material_name}

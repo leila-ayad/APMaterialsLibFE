@@ -8,7 +8,7 @@ export default function Material({
   email,
   image,
 }) {
-  console.log(image);
+  
   return (
     <div className="MaterialContainer">
       <h3 className="MaterialHeader">{item} </h3>

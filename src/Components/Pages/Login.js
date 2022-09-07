@@ -75,8 +75,11 @@ export default function Login(props) {
           <button className="LoginButton">Let's Go!</button>
         </div>
       </form>
+      <div>
       <a href="/register">Create New User</a> |{" "}
       <a href="/help">Forgot Password?</a>
+      </div>
+
     </div>
   );
 }

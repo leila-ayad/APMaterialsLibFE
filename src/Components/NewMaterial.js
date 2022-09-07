@@ -2,6 +2,7 @@ import React from "react";
 import useForm from "../Hooks/useForm";
 import useCheckbox from "../Hooks/useCheckbox";
 import useAxiosPrivate from "../Hooks/useAxiosPrivate";
+import useMessage from "../Hooks/useMessage";
 
 const initialMaterial = {
   material_name: "",
@@ -22,6 +23,9 @@ export default function NewMaterial() {
     useForm(initialMaterial);
   const { checked, handleCheckbox } = useCheckbox(checkboxes);
   const axiosPrivate = useAxiosPrivate();
+  const {message, setMessage} = useMessage();
+
+ 
 
   async function postFormData(formData) {
     const config = {
@@ -31,22 +35,23 @@ export default function NewMaterial() {
     };
     try {
       const result = await axiosPrivate.post("/materials", formData, config);
-      return result.data;
+      setMessage(result.data.message)
     } catch (err) {
       console.log(err);
     } finally {
       setFormData(initialMaterial);
+      console.log(formData)
     }
   }
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-    const result = await postFormData(formData);
-    console.log(result);
+    await postFormData(formData);
   };
 
   return (
       <div className="MaterialFormContainer">
+        <p className="Message">{message}</p>
         <form className="MaterialForm">
           <label>
             Name of Material

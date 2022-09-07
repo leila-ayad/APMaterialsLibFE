@@ -5,11 +5,13 @@ const useDialog = (activeMaterial) => {
   const [showDialog, setShowDialog] = useState(false);
   const [message, setMessage] = useState("");
 
+
   const axiosPrivate = useAxiosPrivate();
   const materialId = activeMaterial.material_id;
 
   const confirmDelete = () => {
     axiosPrivate.delete(`/materials/${materialId}`).then((resp) => {
+      console.log(resp)
       setMessage(resp.data.message);
     });
     setShowDialog(false);
