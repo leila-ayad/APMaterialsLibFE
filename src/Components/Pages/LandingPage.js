@@ -15,13 +15,9 @@ export default function LandingPage() {
       </div>
       <div className="HomeBody">
         <p>
-          I'm baby dreamcatcher chia activated charcoal, pabst swag marfa yr
-          hammock banjo forage edison bulb fanny pack. Activated charcoal migas
-          praxis, tilde succulents mixtape pabst scenester lo-fi. Crucifix
-          enamel pin taiyaki literally vegan, kitsch tbh food truck salvia pabst
-          tousled keffiyeh. Woke tacos ramps, semiotics poke offal farm-to-table
-          pour-over tilde pork belly neutra blog. Succulents blog +1, mustache
-          viral chambray paleo.
+          Hi Pearl and Margaret!! I hope you like this little app I built for the very cool art community 
+          you all have started. I put this version online with most of the functionality/styling built out but I 
+          want to iterate on it with you two and in our community so we have something really great!
         </p>
         <p>
           Stumptown kombucha squid art party enamel pin, skateboard
