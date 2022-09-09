@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "../api/axios";
 import useForm from "../Hooks/useForm";
+import useMessage from "../Hooks/useMessage";
 
 const initialRegister = {
   email: "",
@@ -14,6 +15,8 @@ const initialRegister = {
 export default function Register(props) {
   const [errors, setErrors] = useState({});
   const { formData, handleInputChange } = useForm(initialRegister)
+  const { message, setMessage } = useMessage()
+
 
   const submitRegistration = () => {
     const newMember = {
@@ -26,7 +29,7 @@ export default function Register(props) {
     axios
       .post("/auth/register", newMember)
       .then((resp) => {
-        console.log(resp);
+        setMessage(resp.data.message);
       })
       .catch((err) => {
         console.log(err);
@@ -77,7 +80,8 @@ export default function Register(props) {
     <div>
       <h2>Welcome to the Picnic!</h2>
       <p>All you have to do is fill out the form below. Happy Creating!</p>
-      <form className="RegisterForm" onSubmit={onSubmit}>
+      <p>{message}</p>
+      <form className="RegisterForm" >
         <div className="ErrorMsg">{errors.emptyField}</div>
         <input
           name="username"
@@ -124,7 +128,7 @@ export default function Register(props) {
           onChange={handleInputChange}
         />
         <div className="ErrorMsg">{errors.email}</div>
-        <button className="RegisterButton">Register New User!</button>
+        <button onClick={onSubmit} className="RegisterButton">Register New User!</button>
       </form>
     </div>
   );

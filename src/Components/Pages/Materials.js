@@ -18,7 +18,7 @@ const Materials = () => {
       }
     };
     getMaterials();
-  }, [axiosPrivate]);
+  }, [axiosPrivate, materials]);
 
   return (
     <article>
@@ -41,7 +41,7 @@ const Materials = () => {
           </ul>
         </div>
       ) : (
-        <p>No Materials to display</p>
+        <p>Retrieving materials...</p>
       )}
     </article>
   );

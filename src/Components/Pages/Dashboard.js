@@ -1,14 +1,19 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
+import { axiosPrivate } from '../../api/axios'
 import AuthContext from '../../Contexts/AuthProvider'
+import useMessage from '../../Hooks/useMessage'
 
 export default function Dashboard () {
     const user = useContext(AuthContext)
+    const { removeMessage } = useMessage()
+    
 
     return ( 
-        // some kinda nav bar with logout button, return to the picnic page, back button if on specific material   
         <div>
             <h1>Welcome to your dashboard {user.auth.username}</h1>
-            <p>This is where you manage all your AP things from</p>
+            <p>{`Hi Pearl and Margaret! I hope you like this lil app I built <3`} </p>
+            <br></br>
+            <p>We can build this page out more if it makes sense to manage certain things from here!</p>
         </div>
     )
 }

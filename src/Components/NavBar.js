@@ -29,10 +29,10 @@ export default function Navbar() {
       </Link>
       <ul>
         <CustomLink onClick={updateMessage} to="/materials">Materials</CustomLink>
-        <CustomLink onClick={updateMessage} to={`${id}/your-materials`}>My Materials</CustomLink>
+        <CustomLink onClick={updateMessage} to={id ? `${id}/your-materials` : `/materials`}>My Materials</CustomLink>
         <CustomLink onClick={updateMessage} to="/newMaterial">New Material</CustomLink>
         {auth.accessToken ? (
-          <CustomLink onClick={handleLogout} to="/">
+          <CustomLink onClick={handleLogout}  to="/">
             Logout
           </CustomLink>
         ) : (

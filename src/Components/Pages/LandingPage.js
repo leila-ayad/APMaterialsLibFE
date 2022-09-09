@@ -4,14 +4,14 @@ import useMessage from "../../Hooks/useMessage";
 
 export default function LandingPage() {
 
-  const { message } = useMessage()
+  const { message, removeMessage } = useMessage()
 
     return (
         <div className="App">
       
       <p>{message}</p>
       <div className="HomeHeader">
-        <h1>Welcome to the Member's Only Area!</h1>
+        <h1>Welcome to the Members Only Area!</h1>
       </div>
       <div className="HomeBody">
         <p>
@@ -45,7 +45,7 @@ export default function LandingPage() {
         <p>Dummy text? More like dummy thicc text, amirite?</p>
       </div>
       <nav>
-        <Link to="/login">Login</Link> | <Link to="/register">New User</Link>
+        <Link to="/login">Login</Link> | <Link onClick={removeMessage} to="/register">New User</Link>
       </nav>
     </div>
     )

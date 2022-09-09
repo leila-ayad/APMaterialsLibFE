@@ -8,7 +8,7 @@ export default function Material({
   email,
   image,
 }) {
-  
+  console.log(image);
   return (
     <div className="MaterialContainer">
       <h3 className="MaterialHeader">{item} </h3>
@@ -20,7 +20,7 @@ export default function Material({
           <img
             className="MaterialImage"
             alt={`${item}'s image cannot be retrieved`}
-            src={`http://localhost:9000/api/materials/images/${image}`}
+            src={`https://abstract-picnic-materials-lib.herokuapp.com/api/materials/images/${image}`}
           ></img>
         )}
         <p>Description: {description}</p>

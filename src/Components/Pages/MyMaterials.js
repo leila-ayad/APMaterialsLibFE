@@ -29,13 +29,12 @@ export default function MyMaterials() {
           `/materials/${id}/your-materials`
         );
         setMyMaterials(response.data);
-
       } catch (err) {
         console.error(err);
       }
     };
     getMyMaterials();
-  }, [myMaterials, auth.memberId]);
+  }, [auth.memberId, myMaterials]);
 
   const handleDeleteClick = (material) => {
     setActiveMaterial(material);
@@ -64,12 +63,14 @@ export default function MyMaterials() {
                 email={material.email}
                 image={material.image_name}
               />
-              <button onClick={() => handleUpdateClick(material)}>
-                Update
-              </button>
-              <button onClick={() => handleDeleteClick(material)}>
-                Delete
-              </button>
+              <div>
+                <button onClick={() => handleUpdateClick(material)}>
+                  Update
+                </button>
+                <button onClick={() => handleDeleteClick(material)}>
+                  Delete
+                </button>
+              </div>
             </li>
           ))}
         </ul>

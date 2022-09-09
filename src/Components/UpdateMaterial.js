@@ -23,7 +23,7 @@ export default function UpdateMaterial({
   setMessage,
 }) {
   const { formData, handleInputChange, handleImageUpload, setFormData } =
-    useForm(initialMaterial);
+    useForm(material);
 
   const { checked, handleCheckbox } = useCheckbox(checkboxes);
 
@@ -32,11 +32,9 @@ export default function UpdateMaterial({
   const materialId = material.material_id;
 
   const updateMaterial = () => {
-    axiosPrivate
-      .put(`materials/${materialId}`, formData)
-      .then((resp) => {
-        setMessage(resp.data.message);
-      });
+    axiosPrivate.put(`materials/${materialId}`, formData).then((resp) => {
+      setMessage(resp.data.message);
+    });
     setShow(false);
     setFormData("");
   };
@@ -126,9 +124,11 @@ export default function UpdateMaterial({
           Upload a photo
           <input type="file" name="image" onChange={handleImageUpload} />
         </label>
+        <div>
+          <button onClick={cancelUpdate}>Cancel Update</button>
+          <button onClick={updateMaterial}>Update Material</button>
+        </div>
       </form>
-      <button onClick={cancelUpdate}>Cancel Update</button>
-      <button onClick={updateMaterial}>Update Material</button>
     </div>
   );
 }

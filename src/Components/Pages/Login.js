@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "../../api/axios";
 import useAuth from "../../Hooks/useAuth";
 import useForm from "../../Hooks/useForm";
@@ -17,6 +17,13 @@ export default function Login(props) {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/dashboard";
 
+  useEffect( () => {
+    if (message === "successfully logged out") {
+      removeMessage()
+    }
+}, [message])
+
+
   const submitLogin = () => {
     removeMessage()
     const newUser = {
@@ -26,7 +33,6 @@ export default function Login(props) {
     axios
       .post("/auth/login", newUser)
       .then((resp) => {
-        console.log(resp?.data);
         const accessToken = resp?.data?.accessToken;
         const memberId = resp?.data?.member_id;
         const username = resp?.data?.username;
