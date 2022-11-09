@@ -5,6 +5,7 @@ import Material from "../MaterialCard";
 import Dialog from "../Dialog";
 import useDialog from "../../Hooks/useDialog";
 import UpdateMaterial from "../UpdateMaterial";
+import { Link } from "react-router-dom"
 
 export default function MyMaterials() {
   const [myMaterials, setMyMaterials] = useState([]);
@@ -34,7 +35,7 @@ export default function MyMaterials() {
       }
     };
     getMyMaterials();
-  }, [auth.memberId, myMaterials]);
+  }, [activeMaterial, auth.memberId, axiosPrivate]);
 
   const handleDeleteClick = (material) => {
     setActiveMaterial(material);
@@ -50,12 +51,12 @@ export default function MyMaterials() {
     <article>
       <h2>Your Materials</h2>
       {message ? <p>{message}</p> : <></>}
+      <p>Update, edit and delete materials you have listed here.</p>
       {myMaterials?.length ? (
         <ul className="MaterialsContainer">
           {myMaterials.map((material) => (
-            <li className="MaterialContainer">
-              <Material
-                key={material.material_id}
+            <li className="MaterialContainer" key={material.material_id}>
+              <Material className="MyMaterialContainer"
                 item={material.material_name}
                 description={material.material_description}
                 amount={material.material_unit}
@@ -63,11 +64,11 @@ export default function MyMaterials() {
                 email={material.email}
                 image={material.image_name}
               />
-              <div>
-                <button onClick={() => handleUpdateClick(material)}>
+              <div className="ButtonContainer">
+                <button className="Button" onClick={() => handleUpdateClick(material)}>
                   Update
                 </button>
-                <button onClick={() => handleDeleteClick(material)}>
+                <button  className="Button" onClick={() => handleDeleteClick(material)}>
                   Delete
                 </button>
               </div>
@@ -76,8 +77,7 @@ export default function MyMaterials() {
         </ul>
       ) : (
         <p>
-          You have no materials to display. Add your materials by following the
-          "New Materials" tab
+          You have no materials to display. Add materials to the database <Link to="/newmaterial">here</Link>.
         </p>
       )}
       <Dialog show={showDialog} cancel={cancelDelete} confirm={confirmDelete} />

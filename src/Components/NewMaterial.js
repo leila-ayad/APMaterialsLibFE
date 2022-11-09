@@ -50,7 +50,8 @@ export default function NewMaterial() {
 
   return (
     <div className="MaterialFormContainer">
-      <p className="Message">{message}</p>
+      {message ? <p className="Message">{message}</p> :
+      <h5>Submit a new material to the database.</h5>}
       <form className="MaterialForm">
         <label>
           Name of Material
@@ -123,10 +124,10 @@ export default function NewMaterial() {
         </div>
         <label for="image">
           Upload a photo
-          <input type="file" name="image" onChange={handleImageUpload} />
+          <input className="" type="file" name="image" onChange={handleImageUpload} />
         </label>
       </form>
-      <button onClick={handleSubmit}>Submit Material</button>
+      <button className="Button" onClick={handleSubmit}>Submit Material</button>
     </div>
   );
 }

@@ -15,7 +15,7 @@ export default function Login(props) {
   const { message, setMessage, removeMessage } = useMessage()
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/dashboard";
+  const from = location.state?.from?.pathname || "/materials";
 
   useEffect( () => {
     if (message === "successfully logged out") {
@@ -79,7 +79,7 @@ export default function Login(props) {
           onChange={handleInputChange}
         ></input>
         <div>
-          <button className="LoginButton">Let's Go!</button>
+          <button className="Button">Let's Go!</button>
         </div>
       </form>
       <div>

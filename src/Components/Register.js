@@ -78,8 +78,8 @@ export default function Register(props) {
 
   return (
     <div>
-      <h2>Welcome to the Picnic!</h2>
-      <p>All you have to do is fill out the form below. Happy Creating!</p>
+      <h2>Welcome!</h2>
+      <p>Please fill out the form below for access to our community digital Materials Library.</p>
       <p>{message}</p>
       <form className="RegisterForm" >
         <div className="ErrorMsg">{errors.emptyField}</div>

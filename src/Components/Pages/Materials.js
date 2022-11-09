@@ -1,12 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
 import Material from "../MaterialCard";
 import useMessage from "../../Hooks/useMessage";
+import AuthContext from '../../Contexts/AuthProvider'
 
 const Materials = () => {
   const [materials, setMaterials] = useState();
   const axiosPrivate = useAxiosPrivate();
-  const {message, setMessage } = useMessage()
+  const { message, setMessage } = useMessage();
+  const user = useContext(AuthContext)
 
   useEffect(() => {
     const getMaterials = async () => {
@@ -15,14 +17,16 @@ const Materials = () => {
         setMaterials(response.data);
       } catch (err) {
         setMessage(err);
+        console.log(err)
       }
     };
     getMaterials();
-  }, [axiosPrivate, materials]);
+  }, [materials, axiosPrivate]);
 
   return (
     <article>
-      <h2>Materials List</h2>
+      <h1>Welcome {user.auth.username}</h1>
+
       <p>{message}</p>
       {materials?.length ? (
         <div>
