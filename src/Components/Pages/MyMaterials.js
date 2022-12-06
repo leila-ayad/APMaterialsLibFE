@@ -22,6 +22,7 @@ export default function MyMaterials() {
   } = useDialog(activeMaterial);
   const [showUpdate, setShowUpdate] = useState(false);
 
+
   useEffect(() => {
     const getMyMaterials = async () => {
       const id = auth.memberId;
@@ -37,6 +38,8 @@ export default function MyMaterials() {
     getMyMaterials();
   }, [activeMaterial, auth.memberId, axiosPrivate]);
 
+
+  
   const handleDeleteClick = (material) => {
     setActiveMaterial(material);
     setShowDialog(true);
