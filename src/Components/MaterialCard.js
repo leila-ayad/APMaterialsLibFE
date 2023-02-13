@@ -20,7 +20,7 @@ export default function Material({
           <img
             className="MaterialImage"
             alt={`${item}'s image cannot be retrieved`}
-            src={`https://abstract-picnic-materials-lib.herokuapp.com/api/materials/images/${image}`}
+            src={`http://localhost:9000/api/materials/images/${image}`}
           ></img>
         )}
         <p>{description}</p>

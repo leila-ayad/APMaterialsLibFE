@@ -1,5 +1,5 @@
 import axios from 'axios';
-const BASE_URL = 'https://abstract-picnic-materials-lib.herokuapp.com/api';
+const BASE_URL = 'http://localhost:9000/api';
 
 export default axios.create({
     baseURL: BASE_URL

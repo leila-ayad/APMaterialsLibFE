@@ -6,7 +6,7 @@ import useMessage from '../../Hooks/useMessage'
 export default function Dashboard () {
     const user = useContext(AuthContext)
     const { removeMessage } = useMessage()
-    
+    const doop = "string"
 
     return ( 
         <div>

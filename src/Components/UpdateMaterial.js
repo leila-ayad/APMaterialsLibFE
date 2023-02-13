@@ -22,21 +22,19 @@ export default function UpdateMaterial({
 
   const materialId = material.material_id;
 
-  const updateMaterial = async () => {
+  const updateMaterial = async (e) => {
+    e.preventDefault();
     try {
-      //this isn't working. The entire page is refreshing.
       const response = await axiosPrivate.put(
-        `materials/${materialId}`,
+        `materials/${materialId} `,
         formData
       );
-      console.log("here");
-
       setMessage(response.data.message);
       setShow(false);
-      setFormData("");
     } catch (err) {
       console.log(err);
     } finally {
+      setFormData(material);
     }
   };
 
