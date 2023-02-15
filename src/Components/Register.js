@@ -37,7 +37,7 @@ export default function Register(props) {
       })
   };
 
-  //this function doesn't work right yet. If it puts up the error message it doesn't get rid of it until the form is submitted instead of when the error is fixed
+  //this function doesn't work right yet. If it puts up the error message, the message is displayed until the form is submitted instead of when the error is fixed
   //maybe set the errors to an empty string on each click. 
   const validate = () => {
     let formIsValid = true;
@@ -54,7 +54,6 @@ export default function Register(props) {
     ) {
       formIsValid = false;
       setErrors({ ...errors, emptyField: "Please fill out all fields" });
-      console.log(errors);
     }
     if (formData.password !== formData.password2) {
       formIsValid = false;
