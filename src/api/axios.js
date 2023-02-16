@@ -1,5 +1,5 @@
 import axios from 'axios';
-const BASE_URL = 'http://localhost:9000/api';
+const BASE_URL = 'https://secure-gorge-57927.herokuapp.com/';
 
 export default axios.create({
     baseURL: BASE_URL
