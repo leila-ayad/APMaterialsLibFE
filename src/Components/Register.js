@@ -29,6 +29,8 @@ export default function Register(props) {
     axios
       .post("/auth/register", newMember)
       .then((resp) => {
+        console.log("message", resp.data)
+        
         setMessage(resp.data.message);
       })
       .catch((err) => {
@@ -40,6 +42,7 @@ export default function Register(props) {
   //this function doesn't work right yet. If it puts up the error message, the message is displayed until the form is submitted instead of when the error is fixed
   //maybe set the errors to an empty string on each click. 
   const validate = () => {
+
     let formIsValid = true;
     //there are different options for the mailFormat regex. This one is working (7/20/2022)
     let mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/;
