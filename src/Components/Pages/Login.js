@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import axios from "../../api/axios";
 import useAuth from "../../Hooks/useAuth";
 import useForm from "../../Hooks/useForm";
@@ -21,7 +21,7 @@ export default function Login(props) {
     if (message === "successfully logged out") {
       removeMessage()
     }
-}, [message])
+}, [message, removeMessage])
 
 
   const submitLogin = () => {

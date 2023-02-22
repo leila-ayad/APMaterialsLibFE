@@ -2,13 +2,13 @@ import { useState, useContext, useEffect } from "react";
 import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
 import Material from "../MaterialCard";
 import useMessage from "../../Hooks/useMessage";
-import AuthContext from '../../Contexts/AuthProvider'
+import AuthContext from "../../Contexts/AuthProvider";
 
 const Materials = () => {
   const [materials, setMaterials] = useState();
   const axiosPrivate = useAxiosPrivate();
   const { message, setMessage } = useMessage();
-  const user = useContext(AuthContext)
+  const user = useContext(AuthContext);
 
   useEffect(() => {
     const getMaterials = async () => {
@@ -17,11 +17,11 @@ const Materials = () => {
         setMaterials(response.data);
       } catch (err) {
         setMessage(err);
-        console.log(err)
+        console.log(err);
       }
     };
     getMaterials();
-  }, [materials, axiosPrivate]);
+  }, [materials, axiosPrivate, setMessage]);
 
   return (
     <article>

@@ -7,7 +7,7 @@ import useMessage from "../Hooks/useMessage";
 export default function Navbar() {
   const { auth, setAuth } = useAuth();
   const axiosPrivate = useAxiosPrivate();
-  const { message, setMessage, removeMessage } = useMessage();
+  const {  setMessage, removeMessage } = useMessage();
   const id = auth.memberId;
 
   const handleLogout = () => {
