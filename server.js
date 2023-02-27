@@ -5,7 +5,7 @@ const url = require('url');
 const fixieUrl = url.parse(process.env.FIXIE_URL);
 const fixieAuth = fixieUrl.auth.split(':');
 
-axios.get('https://abstractpicnicmaterials.com', {
+axios.get('https://www.abstractpicnicmaterials.com', {
   proxy: {
     protocol: 'http',
     host: fixieUrl.hostname,
