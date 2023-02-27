@@ -1,8 +1,10 @@
 import axios from "axios";
+import url from "url";
+
 const BASE_URL = "https://secure-gorge-57927.herokuapp.com/api";
-const url = require('url');
+
 const fixieUrl = url.parse(process.env.FIXIE_URL);
-const fixieAuth = fixieUrl.auth.split(':');
+const fixieAuth = fixieUrl.auth.split(":");
 
 export default axios.create({
   baseURL: BASE_URL,
@@ -12,11 +14,11 @@ export default axios.create({
       "https://intense-island-04875.herokuapp.com/",
   },
   proxy: {
-    protocol: 'http',
+    protocol: "http",
     host: fixieUrl.hostname,
     port: fixieUrl.port,
-    auth: {username: fixieAuth[0], password: fixieAuth[1]}
-  }
+    auth: { username: fixieAuth[0], password: fixieAuth[1] },
+  },
 });
 
 export const axiosPrivate = axios.create({
