@@ -3,10 +3,6 @@ import axios from "../api/axios";
 import useForm from "../Hooks/useForm";
 import useMessage from "../Hooks/useMessage";
 
-const url = require('url');
-const fixieUrl = url.parse(process.env.FIXIE_URL);
-const fixieAuth = fixieUrl.auth.split(':');
-
 const initialRegister = {
   email: "",
   name: "",
@@ -31,14 +27,7 @@ export default function Register(props) {
       pronouns: formData.pronouns,
     };
     axios
-      .post("/auth/register", newMember, {
-        proxy: {
-          protocol: 'http',
-          host: fixieUrl.hostname,
-          port: fixieUrl.port,
-          auth: {username: fixieAuth[0], password: fixieAuth[1]}
-        }
-      })
+      .post("/auth/register", newMember)
       .then((resp) => {
         console.log("message", resp.data)
         
