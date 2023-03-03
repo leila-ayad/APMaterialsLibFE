@@ -3,19 +3,17 @@ const BASE_URL = "https://secure-gorge-57927.herokuapp.com/api";
 
 export default axios.create({
   baseURL: BASE_URL,
-    headers: {
+  headers: {
     "Content-Type": "application/json",
-    "Access-Control-Allow-Origin":
-      "https://intense-island-04875.herokuapp.com/",
-  }
+    "Access-Control-Allow-Origin": "https://www.abstractpicnicmaterials.com",
+  },
 });
 
 export const axiosPrivate = axios.create({
   baseURL: BASE_URL,
   headers: {
     "Content-Type": "application/json",
-    "Access-Control-Allow-Origin":
-      "https://intense-island-04875.herokuapp.com/",
+    "Access-Control-Allow-Origin": "https://www.abstractpicnicmaterials.com",
   },
   withCredentials: true,
 });
